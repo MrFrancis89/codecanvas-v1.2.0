@@ -102,7 +102,10 @@ const EditorManager = (() => {
         'Cmd-O':  () => FileManager.importFile(),
         'Escape': () => FindReplaceManager.close(),
       },
-      viewportMargin: Infinity,
+      // viewportMargin: Infinity causava travamento do parser de highlighting
+      // em arquivos grandes no mobile — renderizava todo o DOM de uma vez,
+      // esgotando o budget de CPU antes do highlight terminar (texto branco).
+      viewportMargin: 10,
       scrollbarStyle: 'native',
       inputStyle: 'textarea',
     });
@@ -111,11 +114,11 @@ const EditorManager = (() => {
     _cm.setSize(null, '100%');
     _cm.on('cursorActivity', _updateStatus);
 
-    // Forca o highlighting em 3 momentos para garantir que o CSS do CDN
-    // ja esteja carregado antes de aplicar o tema.
-    _forceHighlight();
-    setTimeout(_forceHighlight, 300);
-    setTimeout(_forceHighlight, 800);
+    // Retry em intervalos crescentes ate 5 s: garante que CSS/JS do CDN
+    // estejam prontos antes de aplicar tema e modo — critico em mobile.
+    [100, 300, 600, 1000, 1800, 3000, 5000].forEach(ms =>
+      setTimeout(_forceHighlight, ms)
+    );
 
     // Autosave com debounce
     let _saveTimer = null;
