@@ -237,7 +237,7 @@ body {
   font-size: max(16px, 14px) !important;
   line-height: 1.7 !important;
   background: var(--cm-bg) !important;
-  color: var(--text-primary) !important;
+  color: var(--text-primary); /* sem !important — tokens sobrescrevem via cm-s-* */
   border: none !important;
 }
 .CodeMirror-gutters {
@@ -260,6 +260,74 @@ body {
 .CodeMirror-activeline .CodeMirror-activeline-background {
   background: rgba(99, 102, 241, 0.05) !important;
 }
+
+/* =====================================================================
+   SYNTAX HIGHLIGHTING — TOKEN COLORS (embutido, sem dependência de CDN)
+   Escopo: .cm-s-one-dark → tema escuro  |  [data-theme="light"] → tema claro
+   ===================================================================== */
+
+/* ── Tema escuro: one-dark ── */
+.cm-s-one-dark.CodeMirror                { background: #282c34; color: #abb2bf; }
+.cm-s-one-dark .CodeMirror-gutters       { background: #282c34; border-right: 0; }
+.cm-s-one-dark .CodeMirror-linenumber    { color: #4b5263; }
+.cm-s-one-dark .CodeMirror-cursor        { border-left-color: #528bff; }
+.cm-s-one-dark div.CodeMirror-selected,
+.cm-s-one-dark.CodeMirror-focused div.CodeMirror-selected { background: #3e4451; }
+.cm-s-one-dark .CodeMirror-activeline-background { background: #2c313a; }
+.cm-s-one-dark .CodeMirror-matchingbracket {
+  color: #fff !important;
+  border-bottom: 1px solid #528bff;
+  background: rgba(82,139,255,.15);
+}
+.cm-s-one-dark .cm-keyword              { color: #c678dd; }
+.cm-s-one-dark .cm-operator             { color: #56b6c2; }
+.cm-s-one-dark .cm-variable             { color: #e06c75; }
+.cm-s-one-dark .cm-variable-2           { color: #e06c75; }
+.cm-s-one-dark .cm-variable-3,
+.cm-s-one-dark .cm-type                 { color: #e5c07b; }
+.cm-s-one-dark .cm-def                  { color: #61afef; }
+.cm-s-one-dark .cm-property             { color: #61afef; }
+.cm-s-one-dark .cm-function             { color: #61afef; }
+.cm-s-one-dark .cm-number               { color: #d19a66; }
+.cm-s-one-dark .cm-atom                 { color: #d19a66; }
+.cm-s-one-dark .cm-builtin              { color: #e6c07b; }
+.cm-s-one-dark .cm-string               { color: #98c379; }
+.cm-s-one-dark .cm-string-2             { color: #98c379; }
+.cm-s-one-dark .cm-comment              { color: #5c6370; font-style: italic; }
+.cm-s-one-dark .cm-tag                  { color: #e06c75; }
+.cm-s-one-dark .cm-attribute            { color: #d19a66; }
+.cm-s-one-dark .cm-meta                 { color: #abb2bf; }
+.cm-s-one-dark .cm-qualifier            { color: #e5c07b; }
+.cm-s-one-dark .cm-bracket              { color: #abb2bf; }
+.cm-s-one-dark .cm-header               { color: #e06c75; font-weight: bold; }
+.cm-s-one-dark .cm-link                 { color: #98c379; text-decoration: underline; }
+.cm-s-one-dark .cm-error                { color: #f44747; }
+.cm-s-one-dark .cm-hr                   { color: #5c6370; }
+
+/* ── Tema claro ── */
+[data-theme="light"] .cm-keyword        { color: #7c3aed; }
+[data-theme="light"] .cm-operator       { color: #0891b2; }
+[data-theme="light"] .cm-variable       { color: #be123c; }
+[data-theme="light"] .cm-variable-2     { color: #be123c; }
+[data-theme="light"] .cm-variable-3,
+[data-theme="light"] .cm-type           { color: #b45309; }
+[data-theme="light"] .cm-def            { color: #1d4ed8; }
+[data-theme="light"] .cm-property       { color: #1d4ed8; }
+[data-theme="light"] .cm-function       { color: #1d4ed8; }
+[data-theme="light"] .cm-number         { color: #b45309; }
+[data-theme="light"] .cm-atom           { color: #b45309; }
+[data-theme="light"] .cm-builtin        { color: #b45309; }
+[data-theme="light"] .cm-string         { color: #166534; }
+[data-theme="light"] .cm-string-2       { color: #166534; }
+[data-theme="light"] .cm-comment        { color: #6b7280; font-style: italic; }
+[data-theme="light"] .cm-tag            { color: #be123c; }
+[data-theme="light"] .cm-attribute      { color: #b45309; }
+[data-theme="light"] .cm-qualifier      { color: #b45309; }
+[data-theme="light"] .cm-meta           { color: #374151; }
+[data-theme="light"] .cm-bracket        { color: #374151; }
+[data-theme="light"] .cm-header         { color: #be123c; font-weight: bold; }
+[data-theme="light"] .cm-link           { color: #166534; text-decoration: underline; }
+[data-theme="light"] .cm-error          { color: #dc2626; }
 
 /* Scrollbars */
 ::-webkit-scrollbar { width: 8px; height: 8px; }
