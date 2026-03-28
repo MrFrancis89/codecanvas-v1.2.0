@@ -52,8 +52,13 @@ const EditorManager = (() => {
   // nao e aplicado no primeiro render.
   const _forceHighlight = () => {
     if (!_cm) return;
-    _cm.setOption('mode', _resolveMode(LangManager.current()));
-    _cm.setOption('theme', ThemeManager.current() === 'dark' ? 'one-dark' : 'default');
+    const theme = ThemeManager.current() === 'dark' ? 'one-dark' : 'default';
+    const mode  = _resolveMode(LangManager.current());
+    // CM5 ignora setOption se o valor nao mudou — o toggle forcá o handler
+    // de theme a disparar de novo, re-aplicando as classes de cor no wrapper.
+    _cm.setOption('theme', theme === 'one-dark' ? 'default' : 'one-dark');
+    _cm.setOption('theme', theme);
+    _cm.setOption('mode',  mode);
     _cm.refresh();
   };
 
